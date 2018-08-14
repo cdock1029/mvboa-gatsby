@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+@import '../node_modules/bulma/sass/utilities/initial-variables';
+
+$body-size: 16px;
+$body-background-color: whitesmoke; // snow; // floralwhite; // ghostwhite; // #f2f2f2;
+$link: indigo;
+
+@import '../node_modules/bulma/bulma.sass';
+
+// .header-offset {
+//   margin-top: $navbar-height;
+// }
+
+#___gatsby {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
