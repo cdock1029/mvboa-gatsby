@@ -1,5 +1,8 @@
 import React from 'react'
 import { Page } from '../components/Page'
+import { ResourceList } from '@auth0/cosmos'
+
+// import { Button } from '@auth0/cosmos'
 
 export default ({
   data: {
@@ -8,7 +11,13 @@ export default ({
 }) => (
   <Page>
     <h3 className="title is-3">Events</h3>
-    <div className="tile is-ancestor">
+    <ResourceList
+      items={events}
+      renderItem={({ node }) => (
+        <ResourceList.Item title={node.title} subtitle={node.eventDate} />
+      )}
+    />
+    {/* <div className="tile is-ancestor">
       <div className="tile is-parent is-vertical">
         {events.map(({ node }) => (
           <div key={node.id} className="tile is-child">
@@ -27,7 +36,11 @@ export default ({
           </div>
         ))}
       </div>
-    </div>
+    </div> */}
+
+    {/* <Button appearance="primary" onClick={() => {}}>
+      Save changes
+    </Button> */}
   </Page>
 )
 
