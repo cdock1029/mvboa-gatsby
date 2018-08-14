@@ -1,5 +1,5 @@
 import React from 'react'
-import Link, { push } from 'gatsby-link'
+import Link from 'gatsby-link'
 import { cx, css } from 'react-emotion'
 
 export default class Header extends React.PureComponent {
@@ -16,7 +16,6 @@ export default class Header extends React.PureComponent {
     })
   }
   render() {
-    console.log('render')
     return (
       <nav
         className="navbar is-danger"
