@@ -42,8 +42,8 @@ export default class Header extends React.PureComponent {
           <div
             css={{
               textTransform: 'uppercase',
-              fontWeight: '500',
-              // fontVariantCaps: 'all-small-caps',
+              fontWeight: '600',
+              letterSpacing: '0.05em',
             }}
             className={cx('navbar-menu', {
               'is-active': this.state.isActive,
