@@ -33,7 +33,7 @@ export default ({
 
 export const pageQuery = graphql`
   query EventsQuery {
-    events: allContentfulEvent(sort: { fields: [eventDate], order: DESC }) {
+    events: allContentfulEvent(sort: { fields: [eventDate], order: ASC }) {
       edges {
         node {
           id
