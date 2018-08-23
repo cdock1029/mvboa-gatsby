@@ -1,19 +1,27 @@
 import React from 'react'
-import Link from 'gatsby-link'
+import { Link, navigate } from 'gatsby'
 import { cx, css } from 'react-emotion'
+
+// TODO: fix janky
 
 export default class Header extends React.PureComponent {
   state = { isActive: false }
   handleToggle = () => {
     this.setState(({ isActive }) => ({ isActive: !isActive }))
   }
-  close = () => {
-    this.setState(({ isActive }) => {
-      if (!isActive) {
-        return null
-      }
-      return { isActive: false }
-    })
+  close = (e, path) => {
+    e.preventDefault()
+    this.setState(
+      ({ isActive }) => {
+        if (!isActive) {
+          return null
+        }
+        return { isActive: false }
+      },
+      () => {
+        navigate(path)
+      },
+    )
   }
   render() {
     return (
@@ -23,7 +31,10 @@ export default class Header extends React.PureComponent {
         aria-label="main navigation">
         <div className="container">
           <div className="navbar-brand">
-            <Link to="/" onClick={this.close} className="navbar-item">
+            <Link
+              to="/"
+              onClick={e => this.close(e, '/')}
+              className="navbar-item">
               <span className="title is-4 has-text-white">MVBOA</span>
             </Link>
             <div
@@ -51,13 +62,22 @@ export default class Header extends React.PureComponent {
             <div className="navbar-start" />
             <div
               className={`navbar-end is-size-4-touch has-text-centered ${touchOnlyPadding}`}>
-              <Link to="/members" onClick={this.close} className="navbar-item">
+              <Link
+                to="/members"
+                onClick={e => this.close(e, '/members')}
+                className="navbar-item">
                 Members
               </Link>
-              <Link to="/links" onClick={this.close} className="navbar-item">
+              <Link
+                to="/links"
+                onClick={e => this.close(e, '/links')}
+                className="navbar-item">
                 Links
               </Link>
-              <Link to="/" onClick={this.close} className="navbar-item">
+              <Link
+                to="/"
+                onClick={e => this.close(e, '/')}
+                className="navbar-item">
                 Events
               </Link>
             </div>
