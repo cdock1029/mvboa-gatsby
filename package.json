@@ -22,7 +22,6 @@
     "gatsby-plugin-manifest": "^2.0.2-rc.0",
     "gatsby-plugin-netlify": "^2.0.0-rc.0",
     "gatsby-plugin-offline": "^2.0.0-rc.0",
-    "gatsby-plugin-page-transitions": "^1.0.7",
     "gatsby-plugin-react-helmet": "^3.0.0-rc.0",
     "gatsby-plugin-sass": "^2.0.0-rc.0",
     "gatsby-source-contentful": "^2.0.1-rc.0",
