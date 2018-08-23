@@ -39,7 +39,7 @@ export default ({
 
 export const pageQuery = graphql`
   query LinksQuery {
-    links: allContentfulLink {
+    links: allContentfulLink(sort: { fields: [title], order: ASC }) {
       edges {
         node {
           id
