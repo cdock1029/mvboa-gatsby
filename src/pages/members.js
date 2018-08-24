@@ -32,8 +32,8 @@ const Spacer = styled.div`
   height: 90px;
 `
 
-function stdName(first, last) {
-  return `${last}, ${first}`
+function stdName(obj) {
+  return `${obj.lastName}, ${obj.firstName}`
 }
 
 export default class Member extends React.Component {
@@ -45,10 +45,11 @@ export default class Member extends React.Component {
     // const { members } = this.state
     return (
       <Downshift
-        onChange={selection => alert(`selection: ${selection.value}`)}
-        itemToString={node =>
-          node ? `${node.lastName}, ${node.firstName}` : ''
-        }>
+        onChange={selection => console.log({ selection })}
+        defaultIsOpen
+        itemToString={node => {
+          return node ? stdName(node) : ''
+        }}>
         {({
           getInputProps,
           getItemProps,
@@ -59,7 +60,7 @@ export default class Member extends React.Component {
           highlightedIndex,
           selectedItem,
         }) => {
-          console.log({ inputValue })
+          console.log({ inputValue, selectedItem })
           return (
             <div>
               <SearchRow>
@@ -92,75 +93,80 @@ export default class Member extends React.Component {
                   <div
                     className="tile is-parent is-vertical"
                     {...getMenuProps()}>
-                    {isOpen
-                      ? members
-                          .filter(({ node }) => {
-                            return (
-                              !inputValue ||
-                              stdName(node.lastName, node.firstName)
-                                .toLowerCase()
-                                .includes(inputValue.toLowerCase())
-                            )
-                          })
-                          .map(({ node }, index) => (
-                            <a
-                              {...getItemProps({
-                                key: node.id,
-                                index,
-                                item: node,
-                                style: {
-                                  backgroundColor:
-                                    highlightedIndex === index
-                                      ? 'lightgray'
-                                      : 'white',
-                                  fontWeight:
-                                    selectedItem === node ? 'bold' : 'normal',
-                                },
-                              })}
-                              className="tile is-child"
-                              href={`${myOHSAARoot}${node.permitNumber}`}>
-                              <div className="card">
-                                {node.role && (
-                                  <header className="card-header">
-                                    <p className="card-header-title has-text-grey">
-                                      {node.role.join(' / ')}
-                                    </p>
-                                  </header>
-                                )}
+                    {members
+                      .filter(({ node }) => {
+                        return (
+                          !inputValue ||
+                          stdName(node)
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase())
+                        )
+                      })
+                      .map(({ node }, index) => (
+                        <a
+                          {...getItemProps({
+                            key: node.id,
+                            index,
+                            item: node,
+                          })}
+                          className="tile is-child"
+                          href={`${myOHSAARoot}${node.permitNumber}`}>
+                          <div className="card">
+                            {node.role && (
+                              <header className="card-header">
+                                <p className="card-header-title has-text-grey">
+                                  {node.role.join(' / ')}
+                                </p>
+                              </header>
+                            )}
 
-                                <div className="card-content">
-                                  <div className="media">
-                                    {/* <div className="media-left">{node.permitNumber}</div> */}
-                                    <div className="media-content">
-                                      <p className="title is-4">{`${
-                                        node.lastName
-                                      }, ${node.firstName}`}</p>
-                                      {/* <p className="subtitle is-5">{node.permitNumber}</p> */}
-                                    </div>
-                                    <div className="media-right">
-                                      <p
-                                        className="title is-4"
-                                        css={{ textAlign: 'right' }}>
-                                        {node.memberClass}
-                                      </p>
-                                      <p className="subtitle is-6 has-text-grey-light">
-                                        Class
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div className="content">
-                                    <p className="title is-5">
-                                      {node.permitNumber}
-                                    </p>
-                                    <p className="subtitle is-6 has-text-grey-light">
-                                      Permit number
-                                    </p>
-                                  </div>
+                            <div
+                              className="card-content"
+                              css={{
+                                backgroundColor:
+                                  highlightedIndex === index
+                                    ? 'gainsboro'
+                                    : 'initial',
+                              }}>
+                              <div className="media">
+                                {/* <div className="media-left">{node.permitNumber}</div> */}
+                                <div className="media-content">
+                                  <p
+                                    className="title is-4"
+                                    css={{
+                                      fontWeight:
+                                        selectedItem &&
+                                        selectedItem.id === node.id
+                                          ? '700'
+                                          : 'initial',
+                                    }}>{`${node.lastName}, ${
+                                    node.firstName
+                                  }`}</p>
+                                  {/* <p className="subtitle is-5">{node.permitNumber}</p> */}
+                                </div>
+                                <div className="media-right">
+                                  <p
+                                    className="title is-4"
+                                    css={{ textAlign: 'right' }}>
+                                    {node.memberClass}
+                                  </p>
+                                  <p className="subtitle is-6 has-text-grey-light">
+                                    Class
+                                  </p>
                                 </div>
                               </div>
-                            </a>
-                          ))
-                      : null}
+                              <div className="content">
+                                <p className="title is-5">
+                                  {node.permitNumber}
+                                </p>
+                                <p className="subtitle is-6 has-text-grey-light">
+                                  Permit number
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      ))}
                   </div>
                 </div>
               </Page>
