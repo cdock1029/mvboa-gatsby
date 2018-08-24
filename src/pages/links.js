@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 import { Page } from '../components/Page'
 
 const colors = [
