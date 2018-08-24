@@ -41,7 +41,7 @@ export default class Layout extends React.PureComponent {
                 title={title}
                 meta={[{ name: 'description', content: description }]}>
                 <html lang="en" />
-                <script
+                {/* <script
                   defer
                   src="https://use.fontawesome.com/releases/v5.2.0/js/solid.js"
                   integrity="sha384-YmNA3b9AQuWW8KZguYfqJa/YhKNTwGVD5pQc1cN0ZAVRudFFtR17HR7rooNcVXe4"
@@ -52,7 +52,7 @@ export default class Layout extends React.PureComponent {
                   src="https://use.fontawesome.com/releases/v5.2.0/js/fontawesome.js"
                   integrity="sha384-QcnrgQuRmocjIBY6ByWMmDvUg3HO4MSdVjY7ynJwZfvTDhVPPQOUI9TRzc6/7ZO1"
                   crossorigin="anonymous"
-                />
+                /> */}
               </Helmet>
               <ThemeProvider theme={theme}>
                 <React.Fragment>

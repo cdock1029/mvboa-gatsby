@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import styled from 'react-emotion'
 import Downshift from 'downshift'
+import Helmet from 'react-helmet'
 import { Page } from '../components/Page'
 
 const myOHSAARoot =
@@ -44,136 +45,158 @@ export default class Member extends React.Component {
     const members = this.props.data.members.edges
     // const { members } = this.state
     return (
-      <Downshift
-        onChange={selection => console.log({ selection })}
-        defaultIsOpen
-        itemToString={node => {
-          return node ? stdName(node) : ''
-        }}>
-        {({
-          getInputProps,
-          getItemProps,
-          getLabelProps,
-          getMenuProps,
-          isOpen,
-          inputValue,
-          highlightedIndex,
-          selectedItem,
-        }) => {
-          console.log({ inputValue, selectedItem })
-          return (
-            <div>
-              <SearchRow>
-                <div className="field is-horizontal">
-                  <div className="field-label is-normal">
-                    <label className="label" {...getLabelProps()}>
-                      Search
-                    </label>
-                  </div>
-                  <div className="field-body">
-                    <div className="field">
-                      <div className="control has-icons-left">
-                        <input
-                          {...getInputProps()}
-                          className="input is-large"
-                          placeholder="Search members"
-                        />
-                        <span className="icon is-medium is-left">
-                          <i className="fas fa-search" />
-                        </span>
+      <>
+        <Helmet>
+          <link
+            rel="preload"
+            as="script"
+            href="https://use.fontawesome.com/releases/v5.2.0/js/solid.js"
+          />
+          <link
+            rel="preload"
+            as="script"
+            href="https://use.fontawesome.com/releases/v5.2.0/js/fontawesome.js"
+          />
+          <script
+            defer
+            src="https://use.fontawesome.com/releases/v5.2.0/js/solid.js"
+          />
+          <script
+            defer
+            src="https://use.fontawesome.com/releases/v5.2.0/js/fontawesome.js"
+          />
+        </Helmet>
+        <Downshift
+          onChange={selection => console.log({ selection })}
+          defaultIsOpen
+          itemToString={node => {
+            return node ? stdName(node) : ''
+          }}>
+          {({
+            getInputProps,
+            getItemProps,
+            getLabelProps,
+            getMenuProps,
+            isOpen,
+            inputValue,
+            highlightedIndex,
+            selectedItem,
+          }) => {
+            console.log({ inputValue, selectedItem })
+            return (
+              <div>
+                <SearchRow>
+                  <div className="field is-horizontal">
+                    <div className="field-label is-normal">
+                      <label className="label" {...getLabelProps()}>
+                        Search
+                      </label>
+                    </div>
+                    <div className="field-body">
+                      <div className="field">
+                        <div className="control has-icons-left">
+                          <input
+                            {...getInputProps()}
+                            className="input is-large"
+                            placeholder="Search members"
+                          />
+                          <span className="icon is-medium is-left">
+                            <i className="fas fa-search" />
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </SearchRow>
-              <Page>
-                <Spacer />
-                <h3 className="title is-3">Members</h3>
-                <div className="tile is-ancestor">
-                  <div
-                    className="tile is-parent is-vertical"
-                    {...getMenuProps()}>
-                    {members
-                      .filter(({ node }) => {
-                        return (
-                          !inputValue ||
-                          stdName(node)
-                            .toLowerCase()
-                            .includes(inputValue.toLowerCase())
-                        )
-                      })
-                      .map(({ node }, index) => (
-                        <a
-                          {...getItemProps({
-                            key: node.id,
-                            index,
-                            item: node,
-                          })}
-                          className="tile is-child"
-                          href={`${myOHSAARoot}${node.permitNumber}`}>
-                          <div className="card">
-                            {node.role && (
-                              <header className="card-header">
-                                <p className="card-header-title has-text-grey">
-                                  {node.role.join(' / ')}
-                                </p>
-                              </header>
-                            )}
+                </SearchRow>
+                <Page>
+                  <Spacer />
+                  <h3 className="title is-3">Members</h3>
+                  <div className="tile is-ancestor">
+                    <div
+                      className="tile is-parent is-vertical"
+                      {...getMenuProps()}>
+                      {members
+                        .filter(({ node }) => {
+                          return (
+                            !inputValue ||
+                            stdName(node)
+                              .toLowerCase()
+                              .includes(inputValue.toLowerCase())
+                          )
+                        })
+                        .map(({ node }, index) => (
+                          <a
+                            {...getItemProps({
+                              key: node.id,
+                              index,
+                              item: node,
+                            })}
+                            className="tile is-child"
+                            href={`${myOHSAARoot}${node.permitNumber}`}>
+                            <div className="card">
+                              {node.role && (
+                                <header className="card-header">
+                                  <p className="card-header-title has-text-grey">
+                                    {node.role.join(' / ')}
+                                  </p>
+                                </header>
+                              )}
 
-                            <div
-                              className="card-content"
-                              css={{
-                                backgroundColor:
-                                  highlightedIndex === index
-                                    ? 'gainsboro'
-                                    : 'initial',
-                              }}>
-                              <div className="media">
-                                {/* <div className="media-left">{node.permitNumber}</div> */}
-                                <div className="media-content">
-                                  <p
-                                    className="title is-4"
-                                    css={{
-                                      fontWeight:
-                                        selectedItem &&
-                                        selectedItem.id === node.id
-                                          ? '700'
-                                          : 'initial',
-                                    }}>{`${node.lastName}, ${
-                                    node.firstName
-                                  }`}</p>
-                                  {/* <p className="subtitle is-5">{node.permitNumber}</p> */}
+                              <div
+                                className="card-content"
+                                css={{
+                                  backgroundColor:
+                                    highlightedIndex === index
+                                      ? 'gainsboro'
+                                      : 'initial',
+                                }}>
+                                <div className="media">
+                                  {/* <div className="media-left">{node.permitNumber}</div> */}
+                                  <div className="media-content">
+                                    <p
+                                      className="title is-4"
+                                      css={{
+                                        fontWeight:
+                                          selectedItem &&
+                                          selectedItem.id === node.id
+                                            ? '700'
+                                            : 'initial',
+                                      }}>{`${node.lastName}, ${
+                                      node.firstName
+                                    }`}</p>
+                                    {/* <p className="subtitle is-5">{node.permitNumber}</p> */}
+                                  </div>
+                                  <div className="media-right">
+                                    <p
+                                      className="title is-4"
+                                      css={{ textAlign: 'right' }}>
+                                      {node.memberClass}
+                                    </p>
+                                    <p className="subtitle is-6 has-text-grey-light">
+                                      Class
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="media-right">
-                                  <p
-                                    className="title is-4"
-                                    css={{ textAlign: 'right' }}>
-                                    {node.memberClass}
+                                <div className="content">
+                                  <p className="title is-5">
+                                    {node.permitNumber}
                                   </p>
                                   <p className="subtitle is-6 has-text-grey-light">
-                                    Class
+                                    Permit number
                                   </p>
                                 </div>
                               </div>
-                              <div className="content">
-                                <p className="title is-5">
-                                  {node.permitNumber}
-                                </p>
-                                <p className="subtitle is-6 has-text-grey-light">
-                                  Permit number
-                                </p>
-                              </div>
                             </div>
-                          </div>
-                        </a>
-                      ))}
+                          </a>
+                        ))}
+                    </div>
                   </div>
-                </div>
-              </Page>
-            </div>
-          )
-        }}
-      </Downshift>
+                </Page>
+              </div>
+            )
+          }}
+        </Downshift>
+      </>
     )
   }
 }
