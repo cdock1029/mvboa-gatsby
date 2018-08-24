@@ -41,7 +41,7 @@ module.exports = {
         start_url: '/',
         background_color: 'whitesmoke',
         theme_color: '#ff3860',
-        display: 'fullscreen',
+        display: 'standalone',
         icon: 'src/images/basketball_512.png', // This path is relative to the root of the site.
       },
     },
