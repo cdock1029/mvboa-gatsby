@@ -1,70 +1,176 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { graphql } from 'gatsby'
+import styled from 'react-emotion'
+import Downshift from 'downshift'
 import { Page } from '../components/Page'
 
 const myOHSAARoot =
   'http://officials.myohsaa.org/Officials/OfficiatingDirectory?role=Official&permitNumber='
 
-export default ({
-  data: {
-    members: { edges: members },
-  },
-}) => (
-  <Page>
-    <h3 className="title is-3">Members</h3>
-    <div className="tile is-ancestor">
-      <div className="tile is-parent is-vertical">
-        {members.map(({ node }) => (
-          <a
-            key={node.id}
-            className="tile is-child"
-            href={`${myOHSAARoot}${node.permitNumber}`}>
-            <div className="card">
-              {node.role && (
-                <header className="card-header">
-                  <p className="card-header-title has-text-grey">
-                    {node.role.join(' / ')}
-                  </p>
-                </header>
-              )}
+const SearchRow = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  top: 3.25em;
+  left: 0;
+  right: 0;
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  z-index: 20;
+  /* background-color: #37a794; */
+  & > span {
+    width: 100%;
+    padding: 1em;
+    border: 1px solid navy;
+  }
+`
+const Spacer = styled.div`
+  height: 90px;
+`
 
-              <div className="card-content">
-                <div className="media">
-                  {/* <div className="media-left">{node.permitNumber}</div> */}
-                  <div className="media-content">
-                    <p className="title is-4">{`${node.lastName}, ${
-                      node.firstName
-                    }`}</p>
-                    {/* <p className="subtitle is-5">{node.permitNumber}</p> */}
+function stdName(first, last) {
+  return `${last}, ${first}`
+}
+
+export default class Member extends React.Component {
+  state = {
+    members: this.props.data.members.edges,
+  }
+  render() {
+    const members = this.props.data.members.edges
+    // const { members } = this.state
+    return (
+      <Downshift
+        onChange={selection => alert(`selection: ${selection.value}`)}
+        itemToString={node =>
+          node ? `${node.lastName}, ${node.firstName}` : ''
+        }>
+        {({
+          getInputProps,
+          getItemProps,
+          getLabelProps,
+          getMenuProps,
+          isOpen,
+          inputValue,
+          highlightedIndex,
+          selectedItem,
+        }) => {
+          console.log({ inputValue })
+          return (
+            <div>
+              <SearchRow>
+                <div className="field is-horizontal">
+                  <div className="field-label is-normal">
+                    <label className="label" {...getLabelProps()}>
+                      Search
+                    </label>
                   </div>
-                  <div className="media-right">
-                    <p className="title is-4" css={{ textAlign: 'right' }}>
-                      {node.memberClass}
-                    </p>
-                    <p className="subtitle is-6 has-text-grey-light">Class</p>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control has-icons-left">
+                        <input
+                          {...getInputProps()}
+                          className="input is-large"
+                          placeholder="Search members"
+                        />
+                        <span className="icon is-medium is-left">
+                          <i className="fas fa-search" />
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="content">
-                  <p className="title is-5">{node.permitNumber}</p>
-                  <p className="subtitle is-6 has-text-grey-light">
-                    Permit number
-                  </p>
-                </div>
-              </div>
+              </SearchRow>
+              <Page>
+                <Spacer />
+                <h3 className="title is-3">Members</h3>
+                <div className="tile is-ancestor">
+                  <div
+                    className="tile is-parent is-vertical"
+                    {...getMenuProps()}>
+                    {isOpen
+                      ? members
+                          .filter(({ node }) => {
+                            return (
+                              !inputValue ||
+                              stdName(node.lastName, node.firstName)
+                                .toLowerCase()
+                                .includes(inputValue.toLowerCase())
+                            )
+                          })
+                          .map(({ node }, index) => (
+                            <a
+                              {...getItemProps({
+                                key: node.id,
+                                index,
+                                item: node,
+                                style: {
+                                  backgroundColor:
+                                    highlightedIndex === index
+                                      ? 'lightgray'
+                                      : 'white',
+                                  fontWeight:
+                                    selectedItem === node ? 'bold' : 'normal',
+                                },
+                              })}
+                              className="tile is-child"
+                              href={`${myOHSAARoot}${node.permitNumber}`}>
+                              <div className="card">
+                                {node.role && (
+                                  <header className="card-header">
+                                    <p className="card-header-title has-text-grey">
+                                      {node.role.join(' / ')}
+                                    </p>
+                                  </header>
+                                )}
 
-              {/* <ul>
-            <li>{node.firstName}</li>
-            <li>{node.lastName}</li>
-            <li>{node.permitNumber}</li>
-            <li>{node.role.join(', ')}</li>
-            <li>{node.memberClass}</li>
-          </ul> */}
+                                <div className="card-content">
+                                  <div className="media">
+                                    {/* <div className="media-left">{node.permitNumber}</div> */}
+                                    <div className="media-content">
+                                      <p className="title is-4">{`${
+                                        node.lastName
+                                      }, ${node.firstName}`}</p>
+                                      {/* <p className="subtitle is-5">{node.permitNumber}</p> */}
+                                    </div>
+                                    <div className="media-right">
+                                      <p
+                                        className="title is-4"
+                                        css={{ textAlign: 'right' }}>
+                                        {node.memberClass}
+                                      </p>
+                                      <p className="subtitle is-6 has-text-grey-light">
+                                        Class
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="content">
+                                    <p className="title is-5">
+                                      {node.permitNumber}
+                                    </p>
+                                    <p className="subtitle is-6 has-text-grey-light">
+                                      Permit number
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                          ))
+                      : null}
+                  </div>
+                </div>
+              </Page>
             </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </Page>
-)
+          )
+        }}
+      </Downshift>
+    )
+  }
+}
 
 export const pageQuery = graphql`
   query MembersQuery {

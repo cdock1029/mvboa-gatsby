@@ -26,7 +26,7 @@ export default class Header extends React.PureComponent {
   render() {
     return (
       <nav
-        className="navbar is-danger"
+        className="navbar is-danger is-fixed-top"
         role="navigation"
         aria-label="main navigation">
         <div className="container">
