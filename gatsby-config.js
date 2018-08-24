@@ -39,7 +39,7 @@ module.exports = {
         name: 'Mahoning Vally Basketball Officials Assoc.',
         short_name: 'MVBOA',
         start_url: '/',
-        background_color: 'whitesmoke',
+        background_color: '#ff3860',
         theme_color: '#ff3860',
         display: 'standalone',
         icon: 'src/images/basketball_512.png', // This path is relative to the root of the site.
