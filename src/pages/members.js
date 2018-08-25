@@ -3,22 +3,22 @@ import { graphql } from 'gatsby'
 import styled from 'react-emotion'
 import Downshift from 'downshift'
 import Helmet from 'react-helmet'
-import posed from 'react-pose'
+// import posed, { PoseGroup } from 'react-pose'
 import { Page } from '../components/Page'
 
-const MembersContainer = posed.div({
-  enter: {
-    delay: 200,
-    beforeChildren: true,
-    staggerChildren: 90,
-    delayChildren: 300,
-  },
-})
+// const MembersContainer = posed.div({
+//   enter: {
+//     delay: 200,
+//     beforeChildren: true,
+//     staggerChildren: 90,
+//     delayChildren: 300,
+//   },
+// })
 
-const A = posed.a({
-  enter: { x: 0, opacity: 1 },
-  exit: { x: 100, opacity: 0 },
-})
+// const A = posed.a({
+//   enter: { x: 0, opacity: 1 },
+//   exit: { x: 100, opacity: 0 },
+// })
 
 const myOHSAARoot =
   'http://officials.myohsaa.org/Officials/OfficiatingDirectory?role=Official&permitNumber='
@@ -127,9 +127,10 @@ export default class Member extends React.Component {
                   <Spacer />
                   <h3 className="title is-3">Members</h3>
                   <div className="tile is-ancestor">
-                    <MembersContainer
+                    <div
                       className="tile is-parent is-vertical"
                       {...getMenuProps()}>
+                      {/* <PoseGroup> */}
                       {members
                         .filter(({ node }) => {
                           return (
@@ -140,11 +141,15 @@ export default class Member extends React.Component {
                           )
                         })
                         .map(({ node }, index) => (
-                          <A
+                          <a
                             {...getItemProps({
                               key: node.id,
                               index,
                               item: node,
+                              style: {
+                                opacity: 1,
+                                transform: 'none',
+                              },
                             })}
                             className="tile is-child"
                             href={`${myOHSAARoot}${node.permitNumber}`}>
@@ -202,9 +207,10 @@ export default class Member extends React.Component {
                                 </div>
                               </div>
                             </div>
-                          </A>
+                          </a>
                         ))}
-                    </MembersContainer>
+                      {/* </PoseGroup> */}
+                    </div>
                   </div>
                 </Page>
               </div>
