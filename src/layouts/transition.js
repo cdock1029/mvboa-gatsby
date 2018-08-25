@@ -1,10 +1,12 @@
 import React from 'react'
 import posed, { PoseGroup } from 'react-pose'
 
-const timeout = 200
+// const timeout = 350
 
 const RoutesContainer = posed.div({
-  enter: { delay: timeout, beforeChildren: true, delayChildren: timeout },
+  // todo: look into this, delayChildren etc..
+  // enter: { delayChildren: timeout /*beforeChildren: true*/ },
+  // exit: { delay: timeout },
 })
 
 class Transition extends React.PureComponent {

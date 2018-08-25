@@ -1,6 +1,21 @@
 import React from 'react'
+import posed from 'react-pose'
 import { graphql } from 'gatsby'
 import { Page } from '../components/Page'
+
+const EventsContainer = posed.div({
+  enter: {
+    staggerChildren: 90,
+    delay: 200,
+    beforeChildren: true,
+    delayChildren: 300,
+  },
+})
+
+const EventDiv = posed.div({
+  enter: { x: 0, opacity: 1 },
+  exit: { x: 100, opacity: 0 },
+})
 
 export default ({
   data: {
@@ -10,9 +25,9 @@ export default ({
   <Page>
     <h3 className="title is-3">Events</h3>
     <div className="tile is-ancestor">
-      <div className="tile is-parent is-vertical">
+      <EventsContainer className="tile is-parent is-vertical">
         {events.map(({ node }) => (
-          <div key={node.id} className="tile is-child">
+          <EventDiv key={node.id} className="tile is-child">
             <div className="card">
               <div className="card-content">
                 <div className="media">
@@ -25,9 +40,9 @@ export default ({
                 <div className="content">{node.description.description}</div>
               </div>
             </div>
-          </div>
+          </EventDiv>
         ))}
-      </div>
+      </EventsContainer>
     </div>
   </Page>
 )

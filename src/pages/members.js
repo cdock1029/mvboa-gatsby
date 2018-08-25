@@ -3,7 +3,22 @@ import { graphql } from 'gatsby'
 import styled from 'react-emotion'
 import Downshift from 'downshift'
 import Helmet from 'react-helmet'
+import posed from 'react-pose'
 import { Page } from '../components/Page'
+
+const MembersContainer = posed.div({
+  enter: {
+    delay: 200,
+    beforeChildren: true,
+    staggerChildren: 90,
+    delayChildren: 300,
+  },
+})
+
+const A = posed.a({
+  enter: { x: 0, opacity: 1 },
+  exit: { x: 100, opacity: 0 },
+})
 
 const myOHSAARoot =
   'http://officials.myohsaa.org/Officials/OfficiatingDirectory?role=Official&permitNumber='
@@ -112,7 +127,7 @@ export default class Member extends React.Component {
                   <Spacer />
                   <h3 className="title is-3">Members</h3>
                   <div className="tile is-ancestor">
-                    <div
+                    <MembersContainer
                       className="tile is-parent is-vertical"
                       {...getMenuProps()}>
                       {members
@@ -125,7 +140,7 @@ export default class Member extends React.Component {
                           )
                         })
                         .map(({ node }, index) => (
-                          <a
+                          <A
                             {...getItemProps({
                               key: node.id,
                               index,
@@ -187,9 +202,9 @@ export default class Member extends React.Component {
                                 </div>
                               </div>
                             </div>
-                          </a>
+                          </A>
                         ))}
-                    </div>
+                    </MembersContainer>
                   </div>
                 </Page>
               </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import posed from 'react-pose'
 import { Page } from '../components/Page'
 
 const colors = [
@@ -10,6 +11,20 @@ const colors = [
   'is-success',
 ]
 
+const LinksContainer = posed.div({
+  enter: {
+    delay: 200,
+    beforeChildren: true,
+    delayChildren: 300,
+    staggerChildren: 70,
+  },
+})
+
+const A = posed.a({
+  enter: { x: 0, opacity: 1 },
+  exit: { x: 70, opacity: 0 },
+})
+
 export default ({
   data: {
     links: { edges: links },
@@ -19,9 +34,9 @@ export default ({
     <h3 className="title is-3">Links</h3>
     <div className="section">
       <div className="tile is-ancestor">
-        <div className="tile is-parent is-vertical">
+        <LinksContainer className="tile is-parent is-vertical">
           {links.map(({ node }, i) => (
-            <a
+            <A
               className={`tile is-child notification ${
                 colors[i % colors.length]
               }`}
@@ -30,9 +45,9 @@ export default ({
               {/* <div className="tile notification is-warning" key={node.id}> */}
               <p className="title is-3">{node.title}</p>
               {/* </div> */}
-            </a>
+            </A>
           ))}
-        </div>
+        </LinksContainer>
       </div>
     </div>
   </Page>
