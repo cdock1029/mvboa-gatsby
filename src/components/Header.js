@@ -19,7 +19,9 @@ export default class Header extends React.PureComponent {
         return { isActive: false }
       },
       () => {
-        navigate(path)
+        setTimeout(() => {
+          navigate(path)
+        }, 100)
       },
     )
   }

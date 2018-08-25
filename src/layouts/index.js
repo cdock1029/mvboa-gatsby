@@ -1,6 +1,7 @@
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import { ThemeProvider } from 'emotion-theming'
+import posed from 'react-pose'
 import styled from 'react-emotion'
 import Helmet from 'react-helmet'
 import theme from '../theme'
@@ -10,8 +11,23 @@ import '../app.scss'
 // TODO: icon attribution
 //<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
-const Main = styled.main`
+const Transition = posed.div({
+  enter: {
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+  },
+})
+
+const Main = styled(Transition)`
   margin-top: 3.25em;
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `
 
 export default class Layout extends React.PureComponent {
@@ -41,23 +57,13 @@ export default class Layout extends React.PureComponent {
                 title={title}
                 meta={[{ name: 'description', content: description }]}>
                 <html lang="en" />
-                {/* <script
-                  defer
-                  src="https://use.fontawesome.com/releases/v5.2.0/js/solid.js"
-                  integrity="sha384-YmNA3b9AQuWW8KZguYfqJa/YhKNTwGVD5pQc1cN0ZAVRudFFtR17HR7rooNcVXe4"
-                  crossorigin="anonymous"
-                />
-                <script
-                  defer
-                  src="https://use.fontawesome.com/releases/v5.2.0/js/fontawesome.js"
-                  integrity="sha384-QcnrgQuRmocjIBY6ByWMmDvUg3HO4MSdVjY7ynJwZfvTDhVPPQOUI9TRzc6/7ZO1"
-                  crossorigin="anonymous"
-                /> */}
               </Helmet>
               <ThemeProvider theme={theme}>
                 <React.Fragment>
                   <Header />
-                  <Main className="section">{children}</Main>
+                  <Main id="main-transition" className="section">
+                    {children}
+                  </Main>
                 </React.Fragment>
               </ThemeProvider>
             </>
