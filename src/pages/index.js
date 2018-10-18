@@ -54,13 +54,8 @@ export const pageQuery = graphql`
         node {
           id
           title
-
           description {
             description
-          }
-          location {
-            lon
-            lat
           }
           eventDate(formatString: "YYYY MMMM DD")
         }
