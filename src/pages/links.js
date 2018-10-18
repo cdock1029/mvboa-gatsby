@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import posed from 'react-pose'
 import { Page } from '../components/Page'
+import { AdImage } from '../components/AdImage'
 
 const colors = [
   'is-primary',
@@ -31,6 +32,7 @@ export default ({
   },
 }) => (
   <Page>
+    <AdImage />
     <h3 className="title is-3">Links</h3>
     <div className="section">
       <div className="tile is-ancestor">

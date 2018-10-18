@@ -2,6 +2,7 @@ import React from 'react'
 import posed from 'react-pose'
 import { graphql } from 'gatsby'
 import { Page } from '../components/Page'
+import { AdImage } from '../components/AdImage'
 
 const EventsContainer = posed.div({
   enter: {
@@ -23,6 +24,7 @@ export default ({
   },
 }) => (
   <Page>
+    <AdImage />
     <h3 className="title is-3">Events</h3>
     <div className="tile is-ancestor">
       <EventsContainer className="tile is-parent is-vertical">

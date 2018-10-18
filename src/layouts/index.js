@@ -21,7 +21,9 @@ const Transition = posed.div({
 })
 
 const Main = styled(Transition)`
-  margin-top: 3.25em;
+  label: Main;
+  /*margin-top: 3.25em;*/
+  margin-top: 1.25em;
   position: relative;
   position: absolute;
   top: 0;
