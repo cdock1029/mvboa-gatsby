@@ -24,6 +24,7 @@ const myOHSAARoot =
   'http://officials.myohsaa.org/Officials/OfficiatingDirectory?role=Official&permitNumber='
 
 const SearchRow = styled.div`
+  height: 9rem;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -43,9 +44,16 @@ const SearchRow = styled.div`
     padding: 1em;
     border: 1px solid navy;
   }
+  .search-row-inner {
+    padding: 1rem;
+    background-color: #fbfbfb;
+    /*border: 1px solid #a4a4a4;*/
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+  }
 `
 const Spacer = styled.div`
-  height: 90px;
+  height: 9rem;
 `
 
 function stdName(obj) {
@@ -101,7 +109,7 @@ export default class Member extends React.Component {
             return (
               <div>
                 <SearchRow>
-                  <div className="field is-horizontal">
+                  <div className="search-row-inner field is-horizontal">
                     <div className="field-label is-normal">
                       <label className="label" {...getLabelProps()}>
                         Search
