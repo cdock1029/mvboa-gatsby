@@ -77,6 +77,12 @@ export default class Header extends React.PureComponent {
                 Links
               </Link>
               <Link
+                to="/documents"
+                onClick={e => this.close(e, '/documents')}
+                className="navbar-item">
+                Documents
+              </Link>
+              <Link
                 to="/"
                 onClick={e => this.close(e, '/')}
                 className="navbar-item">
