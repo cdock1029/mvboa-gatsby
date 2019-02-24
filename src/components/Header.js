@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, navigate } from 'gatsby'
-import { cx, css } from 'react-emotion'
+import { css } from '@emotion/core'
 
 // TODO: fix janky
 
@@ -42,9 +42,9 @@ export default class Header extends React.PureComponent {
             <div
               onClick={this.handleToggle}
               role="button"
-              className={cx('navbar-burger', {
-                'is-active': this.state.isActive,
-              })}
+              className={`navbar-burger${
+                this.state.isActive ? ' is-active' : ''
+              }`}
               aria-label="menu"
               aria-expanded="false">
               <span aria-hidden="true" />
@@ -58,9 +58,7 @@ export default class Header extends React.PureComponent {
               fontWeight: '600',
               letterSpacing: '0.05em',
             }}
-            className={cx('navbar-menu', {
-              'is-active': this.state.isActive,
-            })}>
+            className={`navbar-menu${this.state.isActive ? ' is-active' : ''}`}>
             <div className="navbar-start" />
             <div
               className={`navbar-end is-size-4-touch has-text-centered ${touchOnlyPadding}`}>

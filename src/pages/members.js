@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import styled from 'react-emotion'
+import styled from '@emotion/styled'
 import Downshift from 'downshift'
 import Helmet from 'react-helmet'
 // import posed, { PoseGroup } from 'react-pose'
