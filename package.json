@@ -12,8 +12,8 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.7",
-    "@emotion/styled": "^10.0.7",
+    "@emotion/core": "10.0.7",
+    "@emotion/styled": "10.0.7",
     "bulma": "0.7.4",
     "date-fns": "2.0.0-alpha.27",
     "dotenv": "6.2.0",
