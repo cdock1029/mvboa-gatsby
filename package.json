@@ -35,7 +35,7 @@
     "react-emotion": "10.0.0",
     "react-helmet": "5.2.0",
     "react-pose": "4.0.7",
-    "styled-system": "3.2.1"
+    "styled-system": "4.0.0"
   },
   "devDependencies": {
     "airtable": "0.5.9",
