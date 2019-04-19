@@ -19,13 +19,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-sass`,
-    'gatsby-plugin-react-helmet',
-    // {
-    //   resolve: `gatsby-plugin-page-transitions`,
-    //   options: {
-    //     transitionTime: 200,
-    //   },
-    // },
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-contentful`,
       options: {
@@ -45,7 +39,7 @@ module.exports = {
         icon: 'src/images/basketball_512.png', // This path is relative to the root of the site.
       },
     },
-    'gatsby-plugin-offline',
+    `gatsby-plugin-offline`,
     `gatsby-plugin-netlify`,
   ],
 }
