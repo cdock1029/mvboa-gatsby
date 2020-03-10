@@ -32,8 +32,8 @@
     "gatsby-source-contentful": "2.0.50",
     "match-sorter": "3.0.0",
     "node-sass": "4.11.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
     "react-helmet": "5.2.0",
     "react-pose": "4.0.8",
     "styled-system": "4.1.0"
