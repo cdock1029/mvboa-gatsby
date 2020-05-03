@@ -1,12 +1,12 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import styled from '@emotion/styled'
-import Downshift from 'downshift'
-import Helmet from 'react-helmet'
-import { Page } from '../components/Page'
+import React from "react";
+import { graphql } from "gatsby";
+import styled from "@emotion/styled";
+import Downshift from "downshift";
+import { Helmet } from "react-helmet";
+import { Page } from "../components/Page";
 
 const myOHSAARoot =
-  'http://officials.myohsaa.org/Officials/OfficiatingDirectory?role=Official&permitNumber='
+  "http://officials.myohsaa.org/Officials/OfficiatingDirectory?role=Official&permitNumber=";
 
 const SearchRow = styled.div`
   height: 9rem;
@@ -36,21 +36,21 @@ const SearchRow = styled.div`
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
   }
-`
+`;
 const Spacer = styled.div`
   height: 9rem;
-`
+`;
 
 function stdName(obj) {
-  return `${obj.lastName}, ${obj.firstName}`
+  return `${obj.lastName}, ${obj.firstName}`;
 }
 
 export default class Member extends React.Component {
   state = {
     members: this.props.data.members.edges,
-  }
+  };
   render() {
-    const members = this.props.data.members.edges
+    const members = this.props.data.members.edges;
     // const { members } = this.state
     return (
       <>
@@ -75,11 +75,12 @@ export default class Member extends React.Component {
           />
         </Helmet>
         <Downshift
-          onChange={selection => console.log({ selection })}
+          onChange={(selection) => console.log({ selection })}
           defaultIsOpen
-          itemToString={node => {
-            return node ? stdName(node) : ''
-          }}>
+          itemToString={(node) => {
+            return node ? stdName(node) : "";
+          }}
+        >
           {({
             getInputProps,
             getItemProps,
@@ -90,7 +91,7 @@ export default class Member extends React.Component {
             highlightedIndex,
             selectedItem,
           }) => {
-            console.log({ inputValue, selectedItem })
+            console.log({ inputValue, selectedItem });
             return (
               <div>
                 <SearchRow>
@@ -122,7 +123,8 @@ export default class Member extends React.Component {
                   <div className="tile is-ancestor">
                     <div
                       className="tile is-parent is-vertical"
-                      {...getMenuProps()}>
+                      {...getMenuProps()}
+                    >
                       {/* <PoseGroup> */}
                       {members
                         .filter(({ node }) => {
@@ -131,7 +133,7 @@ export default class Member extends React.Component {
                             stdName(node)
                               .toLowerCase()
                               .includes(inputValue.toLowerCase())
-                          )
+                          );
                         })
                         .map(({ node }, index) => (
                           <a
@@ -141,16 +143,17 @@ export default class Member extends React.Component {
                               item: node,
                               style: {
                                 opacity: 1,
-                                transform: 'none',
+                                transform: "none",
                               },
                             })}
                             className="tile is-child"
-                            href={`${myOHSAARoot}${node.permitNumber}`}>
+                            href={`${myOHSAARoot}${node.permitNumber}`}
+                          >
                             <div className="card">
                               {node.role && (
                                 <header className="card-header">
                                   <p className="card-header-title has-text-grey">
-                                    {node.role.join(' / ')}
+                                    {node.role.join(" / ")}
                                   </p>
                                 </header>
                               )}
@@ -160,9 +163,10 @@ export default class Member extends React.Component {
                                 css={{
                                   backgroundColor:
                                     highlightedIndex === index
-                                      ? 'gainsboro'
-                                      : 'initial',
-                                }}>
+                                      ? "gainsboro"
+                                      : "initial",
+                                }}
+                              >
                                 <div className="media">
                                   {/* <div className="media-left">{node.permitNumber}</div> */}
                                   <div className="media-content">
@@ -172,17 +176,17 @@ export default class Member extends React.Component {
                                         fontWeight:
                                           selectedItem &&
                                           selectedItem.id === node.id
-                                            ? '700'
-                                            : 'initial',
-                                      }}>{`${node.lastName}, ${
-                                      node.firstName
-                                    }`}</p>
+                                            ? "700"
+                                            : "initial",
+                                      }}
+                                    >{`${node.lastName}, ${node.firstName}`}</p>
                                     {/* <p className="subtitle is-5">{node.permitNumber}</p> */}
                                   </div>
                                   <div className="media-right">
                                     <p
                                       className="title is-4"
-                                      css={{ textAlign: 'right' }}>
+                                      css={{ textAlign: "right" }}
+                                    >
                                       {node.memberClass}
                                     </p>
                                     <p className="subtitle is-6 has-text-grey-light">
@@ -207,11 +211,11 @@ export default class Member extends React.Component {
                   </div>
                 </Page>
               </div>
-            )
+            );
           }}
         </Downshift>
       </>
-    )
+    );
   }
 }
 
@@ -232,4 +236,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

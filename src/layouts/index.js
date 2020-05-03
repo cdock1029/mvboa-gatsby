@@ -1,12 +1,12 @@
-import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
-import { ThemeProvider } from 'emotion-theming'
-import posed from 'react-pose'
-import styled from '@emotion/styled'
-import Helmet from 'react-helmet'
-import theme from '../theme'
-import Header from '../components/Header'
-import '../app.scss'
+import React from "react";
+import { StaticQuery, graphql } from "gatsby";
+import { ThemeProvider } from "emotion-theming";
+import posed from "react-pose";
+import styled from "@emotion/styled";
+import { Helmet } from "react-helmet";
+import theme from "../theme";
+import Header from "../components/Header";
+import "../app.scss";
 
 // TODO: icon attribution
 //<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
@@ -18,7 +18,7 @@ const Transition = posed.div({
   exit: {
     opacity: 0,
   },
-})
+});
 
 const Main = styled(Transition)`
   label: Main;
@@ -30,11 +30,11 @@ const Main = styled(Transition)`
   left: 0;
   right: 0;
   bottom: 0;
-`
+`;
 
 export default class Layout extends React.PureComponent {
   render() {
-    const { children } = this.props
+    const { children } = this.props;
     return (
       <StaticQuery
         query={graphql`
@@ -46,18 +46,20 @@ export default class Layout extends React.PureComponent {
               }
             }
           }
-        `}>
+        `}
+      >
         {({
           site: {
             siteMetadata: { title, description },
           },
         }) => {
-          console.log({ title, description })
+          console.log({ title, description });
           return (
             <>
               <Helmet
                 title={title}
-                meta={[{ name: 'description', content: description }]}>
+                meta={[{ name: "description", content: description }]}
+              >
                 <html lang="en" />
               </Helmet>
               <ThemeProvider theme={theme}>
@@ -69,9 +71,9 @@ export default class Layout extends React.PureComponent {
                 </React.Fragment>
               </ThemeProvider>
             </>
-          )
+          );
         }}
       </StaticQuery>
-    )
+    );
   }
 }
